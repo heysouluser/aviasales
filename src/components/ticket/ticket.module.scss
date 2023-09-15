@@ -1,0 +1,45 @@
+.avia__ticket {
+  background-color: #fff;
+}
+
+.ticket {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0px 2px 8px 0px #0000001A;
+  border-radius: 5px;
+  padding: 20px;
+  row-gap: 20px;
+  text-transform: uppercase;
+  cursor: pointer;
+  &__header {
+    display: flex;
+    justify-content: space-between;
+  }
+  &__price {
+    font-size: 24px;
+    color: #2196F3;
+  }
+  &__company {
+
+  }
+  &__body {
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+  }
+  &__row {
+    display: flex;
+  }
+  &__column {
+    flex: 1 1 33.333%;
+  }
+  &__title {
+    color: #A0B0B9;
+    font-size: 12px;
+    line-height: 18px;
+  }
+  &__subtitle {
+    font-size: 14px;
+    line-height: 21px;
+  }
+}
