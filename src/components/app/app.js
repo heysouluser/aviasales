@@ -1,6 +1,6 @@
 import styles from './app.module.scss';
 
-import TicketFilter from '../ticket-filter';
+import FiltersList from '../filters-list';
 import Tabs from '../tabs';
 import TicketsList from '../tickets-list';
 import Header from '../header';
@@ -11,7 +11,7 @@ export default function App() {
       <div className={styles.avia__wrapper}>
         <Header />
         <main className={styles.avia__main}>
-          <TicketFilter />
+          <FiltersList />
           <div className={styles.avia__table}>
             <Tabs />
             <TicketsList />
@@ -21,6 +21,8 @@ export default function App() {
     </div>
   );
 }
+
+
 
 
 
