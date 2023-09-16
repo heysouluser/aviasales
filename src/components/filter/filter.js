@@ -12,7 +12,7 @@ export default function Filter({ filter, id }) {
   return (
     <label key={id} className={styles.filter__label}>
       <input
-        type='checkbox'
+        type="checkbox"
         className={styles.filter__checkbox}
         checked={filter.checked}
         onChange={() => dispatch(toggleCheckbox({ id }))} // лучше всегда передавать значение объектом, даже если оно не объект
@@ -20,5 +20,5 @@ export default function Filter({ filter, id }) {
       <span className={styles['filter__custom-checkbox']} />
       <span className={styles.filter__text}>{filter.value}</span>
     </label>
-  )
+  );
 }

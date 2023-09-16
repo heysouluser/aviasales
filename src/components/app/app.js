@@ -1,9 +1,9 @@
-import styles from './app.module.scss';
-
 import FiltersList from '../filters-list';
 import Tabs from '../tabs';
 import TicketsList from '../tickets-list';
 import Header from '../header';
+
+import styles from './app.module.scss';
 
 export default function App() {
   return (
@@ -21,8 +21,3 @@ export default function App() {
     </div>
   );
 }
-
-
-
-
-

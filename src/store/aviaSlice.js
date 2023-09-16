@@ -1,7 +1,9 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  filters: [ // локальный стейт, который про глобальный ничего не знает
+  filters: [
+    // локальный стейт, который про глобальный ничего не знает
     { id: 0, checked: true, value: 'Все' },
     { id: 1, checked: true, value: 'Без пересадок', transfers: 0 },
     { id: 2, checked: true, value: '1 пересадка', transfers: 1 },
@@ -11,7 +13,7 @@ const initialState = {
   buttons: [
     { id: 0, active: false, value: 'самый дешевый' },
     { id: 1, active: false, value: 'самый быстрый' },
-  ]
+  ],
 };
 
 const aviaSlice = createSlice({
@@ -38,17 +40,10 @@ const aviaSlice = createSlice({
       state.buttons.forEach((button, index) => {
         const isActive = index === buttonId;
         button.active = isActive;
-      })
-      if (buttonId === 0) {
-
-      } else {
-
-      }
-    }
+      });
+    },
   },
 });
 
 export const { toggleCheckbox, applySort } = aviaSlice.actions; // экшены создаются в toolkit автоматически, когда мы деструктурируем редюсер из слайса и присваиваем его в sliceName.actions
 export default aviaSlice.reducer; // reducers - набор методов, котоые мы используем и из них автоматически формируется reducer. Именно эту сущность мы должны подключить в store
-
-
