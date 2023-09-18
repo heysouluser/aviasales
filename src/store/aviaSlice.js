@@ -77,20 +77,26 @@ const aviaSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(fetchTickets.pending, (state) => {
-        state.status = 'loading';
+        state.status = true;
         state.error = null;
       })
       .addCase(fetchTickets.fulfilled, (state, action) => {
-        state.status = 'succeeded';
+        state.status = true;
         const tickets = action.payload.tickets.map((ticket) => ({
           id: uniqid(),
           ...ticket,
         }));
-        state.tickets.push(...tickets);
+        state.tickets.unshift(...tickets);
+
+        if (!action.payload.stop) {
+          state.stop = !state.stop;
+        } else {
+          state.status = false;
+        }
       })
       .addCase(fetchTickets.rejected, (state, action) => {
-        state.status = 'failed';
         state.error = action.payload;
+        state.stop = !state.stop;
       });
   },
 });

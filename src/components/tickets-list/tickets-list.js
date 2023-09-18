@@ -9,10 +9,11 @@ import styles from './tickets-list.module.scss';
 
 export default function TicketsList() {
   const dispatch = useDispatch();
-  const { filters, tickets, count, status, error } = useSelector((state) => state.avia);
+  const { filters, tickets, count, status, stop } = useSelector((state) => state.avia);
+
   useEffect(() => {
     dispatch(fetchTickets());
-  }, [dispatch]);
+  }, [dispatch, stop]);
 
   const filterTickets = () => {
     const checkedBoxes = filters.filter((box) => box.checked);
@@ -36,12 +37,16 @@ export default function TicketsList() {
     />
   );
 
+  const spin = status && <Spin />;
+
   return (
-    <div className={styles['avia__tickets-box']}>
-      {status === 'loading' && <Spin />}
-      {status === 'failed' && <p className={styles.avia__error}>Error: {error}</p>}
-      {status === 'succeeded' && !portionOfTickets.length && alert}
-      {status === 'succeeded' && portionOfTickets.map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)}
-    </div>
+    <>
+      {portionOfTickets.length ? spin : null}
+      <div className={styles['avia__tickets-box']}>
+        {!portionOfTickets.length && !status
+          ? alert
+          : portionOfTickets.map((ticket) => <Ticket key={ticket.id} ticket={ticket} />)}
+      </div>
+    </>
   );
 }
