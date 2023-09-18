@@ -1,5 +1,8 @@
 /* eslint-disable no-param-reassign */
-import { createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import uniqid from 'uniqid';
+
+import { aviaService } from '../services/avia-service';
 
 const initialState = {
   filters: [
@@ -14,7 +17,23 @@ const initialState = {
     { id: 0, active: false, value: 'самый дешевый' },
     { id: 1, active: false, value: 'самый быстрый' },
   ],
+  tickets: [],
+  stop: false,
+  status: null,
+  error: null,
+  count: 5,
+  sortByPrice: false,
+  sortBySpeed: false,
 };
+
+export const fetchTickets = createAsyncThunk('aviasales/fetchTickets', async (_, { rejectWithValue }) => {
+  try {
+    const tickets = await aviaService();
+    return tickets;
+  } catch (error) {
+    return rejectWithValue(error.message);
+  }
+});
 
 const aviaSlice = createSlice({
   name: 'aviasales',
@@ -41,9 +60,40 @@ const aviaSlice = createSlice({
         const isActive = index === buttonId;
         button.active = isActive;
       });
+      if (buttonId === 0) {
+        state.sortByPrice = true;
+        state.sortBySpeed = false;
+        state.tickets.sort((a, b) => a.price - b.price);
+      } else if (buttonId === 1) {
+        state.sortByPrice = false;
+        state.sortBySpeed = true;
+        state.tickets.sort((a, b) => a.segments[0].duration - b.segments[0].duration);
+      }
     },
+    showTickets: (state) => {
+      state.count += 5;
+    },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchTickets.pending, (state) => {
+        state.status = 'loading';
+        state.error = null;
+      })
+      .addCase(fetchTickets.fulfilled, (state, action) => {
+        state.status = 'succeeded';
+        const tickets = action.payload.tickets.map((ticket) => ({
+          id: uniqid(),
+          ...ticket,
+        }));
+        state.tickets.push(...tickets);
+      })
+      .addCase(fetchTickets.rejected, (state, action) => {
+        state.status = 'failed';
+        state.error = action.payload;
+      });
   },
 });
 
-export const { toggleCheckbox, applySort } = aviaSlice.actions; // экшены создаются в toolkit автоматически, когда мы деструктурируем редюсер из слайса и присваиваем его в sliceName.actions
+export const { toggleCheckbox, applySort, showTickets } = aviaSlice.actions; // экшены создаются в toolkit автоматически, когда мы деструктурируем редюсер из слайса и присваиваем его в sliceName.actions
 export default aviaSlice.reducer; // reducers - набор методов, котоые мы используем и из них автоматически формируется reducer. Именно эту сущность мы должны подключить в store

@@ -1,0 +1,12 @@
+.avia__button {
+  background-color: #2196F3;
+  height: 50px;
+  color: #fff;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  transition: all 0.5s ease 0s;
+  cursor: pointer;
+  &:hover {
+    background-color: #2b46df;
+  }
+}
