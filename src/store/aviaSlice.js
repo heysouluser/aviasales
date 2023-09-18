@@ -95,5 +95,5 @@ const aviaSlice = createSlice({
   },
 });
 
-export const { toggleCheckbox, applySort, showTickets } = aviaSlice.actions; // экшены создаются в toolkit автоматически, когда мы деструктурируем редюсер из слайса и присваиваем его в sliceName.actions
-export default aviaSlice.reducer; // reducers - набор методов, котоые мы используем и из них автоматически формируется reducer. Именно эту сущность мы должны подключить в store
+export const { toggleCheckbox, applySort, showTickets } = aviaSlice.actions;
+export default aviaSlice.reducer;
