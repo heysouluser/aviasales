@@ -39,3 +39,17 @@ li {
     row-gap: 20px;
   }
 }
+
+@media screen and (max-width : 600px) {
+  .avia {
+    &__wrapper {
+      margin: 0 20px;
+    }
+    &__main{
+      flex-direction: column;
+    }
+    &__table {
+      width: 100%;
+    }
+  }
+}

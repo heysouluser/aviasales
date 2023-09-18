@@ -18,3 +18,10 @@
     letter-spacing: 0.5px;
   }
 }
+
+@media screen and (max-width : 600px) {
+  .filter {
+    width: 100%;
+    margin-bottom: 20px;
+  }
+}
