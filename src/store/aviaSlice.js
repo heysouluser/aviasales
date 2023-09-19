@@ -93,6 +93,13 @@ const aviaSlice = createSlice({
         } else {
           state.status = false;
         }
+
+        if (state.sortByPrice) {
+          state.tickets.sort((a, b) => a.price - b.price);
+        }
+        if (state.sortBySpeed) {
+          state.tickets.sort((a, b) => a.segments[0].duration - b.segments[0].duration);
+        }
       })
       .addCase(fetchTickets.rejected, (state, action) => {
         state.error = action.payload;
